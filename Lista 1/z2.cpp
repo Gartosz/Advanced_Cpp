@@ -9,52 +9,55 @@ namespace cpplab
     {
     public:
         typedef T value_type;
-        size_t size = 0;
+        
         Vector()
         {
         }
 
         Vector(T value)
         {
-            this->capacity = 2;
-            this->size++;
-            this->array.reset(new T[this->capacity]);
+            this->_capacity = 2;
+            this->_size++;
+            this->array.reset(new T[this->_capacity]);
             this->array[0] = value;
         }
 
         Vector(std::initializer_list<T> values_list)
         {
-            size = values_list.size();
-            capacity = size % 2 ? size + 1 : size;
-            array.reset(new T[this->capacity]);
+            _size = values_list.size();
+            _capacity = _size % 2 ? _size + 1 : _size;
+            array.reset(new T[this->_capacity]);
             std::copy(values_list.begin(), values_list.end(), array.get());
         }
 
         void push_back(T value)
         {
-            if (size == capacity)
+            if (_size == _capacity)
             {
-                this->resize(capacity + 2);
+                this->resize(_capacity + 2);
             }
-            array[size] = value;
-            size++;
+            array[_size] = value;
+            _size++;
         }
 
         void pop(T index)
         {
-            if(size > 0)
+            if(_size > 0)
             { 
-                for (size_t i = index; i < this->size-1; ++i)
+                for (size_t i = index; i < this->_size-1; ++i)
                     array[i] = array[i+1];
-                size--;
+                _size--;
             }
         }
 
         void pop_back()
         {
-            if(capacity > 0)
-                size--;
+            if(_capacity > 0)
+                _size--;
         }
+        
+        const size_t & size() const { return _size; }
+
 
         T &operator[](std::size_t id) const { return this->array[id]; }
         T &operator[](std::size_t id) { return this->array[id]; }
@@ -62,14 +65,15 @@ namespace cpplab
         friend std::ostream& operator<<(std::ostream& os, const Vector& vec)
         {
             os << "{ ";
-            for(int i = 0; i < vec.size; ++i)
+            for(int i = 0; i < vec._size; ++i)
                 os << vec.array[i] << ", ";
             os << "\b\b }";
             return os;
         }
 
     private:
-        size_t capacity = 0;
+        size_t _capacity = 0;
+        size_t _size = 0;
         std::unique_ptr<T[]> array;
 
         void resize(size_t new_capacity)
@@ -77,12 +81,12 @@ namespace cpplab
             T *new_array = new T[new_capacity];
             set_values(new_array);
             array_reset(new_array);
-            this->capacity = new_capacity;
+            this->_capacity = new_capacity;
         }
 
         void set_values(T *new_array)
         {
-            for (size_t i = 0; i < this->size; ++i)
+            for (size_t i = 0; i < this->_size; ++i)
                 new_array[i] = array[i];
         }
 
@@ -95,16 +99,18 @@ namespace cpplab
     };
 }
 
+    
     template<typename T1, typename T2>
-    auto operator*(T1 const &lhs, T2 const &rhs) 
+    auto operator*(T1 const &lhs, T2 const &rhs) -> decltype(lhs[0]*rhs[0])
     {
-        if(rhs.size != lhs.size)
+        if(rhs.size() != lhs.size())
             throw std::logic_error("Both sizes must be equal in order to perform that operation");
-        auto result = 0;
-        for(int i = 0; i < lhs.size; ++i)
+        auto result = lhs[0]*rhs[0];
+        for(int i = 1; i < lhs.size(); ++i)
             result += rhs[i]*lhs[i];
         return result;
-    }
+    } 
+    
 
 
 int main()
@@ -123,7 +129,7 @@ int main()
     std::cout << v2;
 
     cpplab::Vector<float> v3{2.4, 7.5, 21.6, 532.4};
-    cpplab::Vector<float> v4{24.1, 5.3, 43.86, 32.94};
+    cpplab::Vector<float> v4{24.1, 5.3, 43.86, 32.97};
     std::cout<<std::endl<<v3<<std::endl;
     std::cout<<v3*v4<<"\n";
     v3.pop_back();
