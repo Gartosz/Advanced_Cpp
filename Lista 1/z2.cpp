@@ -2,6 +2,7 @@
 #include <memory>
 #include <initializer_list>
 #include <string>
+#include <vector>
 
 namespace cpplab
 {
@@ -35,7 +36,7 @@ namespace cpplab
         {
             if (_size == _capacity)
             {
-                resize(_capacity + _capacity_base);
+                change_capacity(_capacity + _capacity_base);
             }
             array[_size] = value;
             _size++;
@@ -61,11 +62,27 @@ namespace cpplab
             }
         }
 
+        void resize(size_t new_size, T default_value)
+        {
+            if (new_size > _size)
+            {
+                change_capacity(new_size);
+                for(;_size < new_size;)
+                    push_back(default_value);
+            }
+            else if(new_size < _size)
+            {
+                _size = new_size;
+                change_capacity(new_size);
+            }
+                
+        }
+
         const size_t &size() const { return _size; }
 
         constexpr T &operator[](std::size_t id) const
         {
-            if (id < _size)
+            if (id < _size && id >= 0)
                 return array[id];
             else
                 throw std::out_of_range("Tried to access element with index " + std::to_string(id) + " when size of the vector is " + std::to_string(_size) + ".");
@@ -86,11 +103,12 @@ namespace cpplab
         size_t _size = 0;
         std::unique_ptr<T[]> array;
 
-        void resize(size_t new_capacity)
+        void change_capacity(size_t new_capacity)
         {
-            T *new_array = new T[new_capacity];
+            _capacity = new_capacity + ((new_capacity % _capacity_base) ? (_capacity_base - (new_capacity % _capacity_base)) : 0);
+            T *new_array = new T[_capacity];
             set_values(new_array);
-            array_reset(new_array);
+            array.reset(new_array);
             _capacity = new_capacity;
         }
 
@@ -100,16 +118,10 @@ namespace cpplab
                 new_array[i] = array[i];
         }
 
-        void array_reset(T *new_array)
-        {
-            array.reset(new_array);
-            delete[] new_array;
-        }
-
         void reduce_capacity()
         {
             if (_capacity > _capacity_base && _capacity - _capacity_base >= _size + 1)
-                resize(_capacity - _capacity_base);
+                change_capacity(_size);
         }
 
         inline bool check_size() { return _size > 0 ? true : false; }
@@ -158,6 +170,12 @@ int main()
     std::cout << v_char << v_string << "\n";
     std::cout << v_char * v_char << "\n";
     std::cout << v3 * v_char << "\n";
+    std::vector<int> std_vector{1, 50, 83};
+    std::cout << v3 * std_vector << "\n";
+    v4.resize(10, 111.5);
+    std::cout << v4 << "\n";
+    v4.resize(6, 123.1);
+    std::cout << v4;
 
     return 0;
 }
