@@ -26,7 +26,7 @@ namespace cpplab
         Vector(std::initializer_list<T> values_list)
         {
             _size = values_list.size();
-            _capacity = _size % 2 ? _size + 1 : _size;
+            _capacity = _size + (_size % _capacity_base) ? (_capacity_base - (_size % _capacity_base)) : 0;
             array.reset(new T[this->_capacity]);
             std::copy(values_list.begin(), values_list.end(), array.get());
         }
@@ -59,7 +59,8 @@ namespace cpplab
         
         const size_t & size() const { return _size; }
 
-        constexpr T &operator[](std::size_t id) const { 
+        constexpr T &operator[](std::size_t id) const 
+        { 
             if (id < _size)
                 return this->array[id]; 
             else
