@@ -1,6 +1,7 @@
 #include <iostream>
 #include <memory>
 #include <initializer_list>
+#include <string>
 
 namespace cpplab
 {
@@ -16,7 +17,7 @@ namespace cpplab
 
         Vector(T value)
         {
-            this->_capacity = 2;
+            this->_capacity = _capacity_base;
             this->_size++;
             this->array.reset(new T[this->_capacity]);
             this->array[0] = value;
@@ -34,7 +35,7 @@ namespace cpplab
         {
             if (_size == _capacity)
             {
-                this->resize(_capacity + 2);
+                this->resize(_capacity + _capacity_base);
             }
             array[_size] = value;
             _size++;
@@ -58,9 +59,13 @@ namespace cpplab
         
         const size_t & size() const { return _size; }
 
-
-        T &operator[](std::size_t id) const { return this->array[id]; }
-        T &operator[](std::size_t id) { return this->array[id]; }
+        constexpr T &operator[](std::size_t id) const { 
+            if (id < _size)
+                return this->array[id]; 
+            else
+                throw std::out_of_range("Tried to access element with index "+std::to_string(id)+" when size of the vector is "
+                +std::to_string(_size)+".");
+        }
 
         friend std::ostream& operator<<(std::ostream& os, const Vector& vec)
         {
@@ -73,6 +78,7 @@ namespace cpplab
 
     private:
         size_t _capacity = 0;
+        size_t _capacity_base = 4;
         size_t _size = 0;
         std::unique_ptr<T[]> array;
 
@@ -112,7 +118,6 @@ namespace cpplab
     } 
     
 
-
 int main()
 {
     cpplab::Vector<int> v;
@@ -120,12 +125,12 @@ int main()
     for (int i = 0; i < 10; ++i)
         v.push_back(i);
 
+    std::cout << v << "\n";
     v[3] = 123;
-
     std::cout << v << "\n";
 
     cpplab::Vector<int> v2(856);
-    std::cout << v2[0] << "\n";
+    std::cout << v2[0] << " "<< v2.size() <<"\n";
     std::cout << v2;
 
     cpplab::Vector<float> v3{2.4, 7.5, 21.6, 532.4};
