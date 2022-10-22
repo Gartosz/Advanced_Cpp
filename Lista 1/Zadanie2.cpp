@@ -36,7 +36,7 @@ namespace cpplab
         {
             if (_size == _capacity)
             {
-                change_capacity(_capacity + _capacity_base);
+                reallocate(_capacity + _capacity_base);
             }
             array[_size] = value;
             _size++;
@@ -66,14 +66,14 @@ namespace cpplab
         {
             if (new_size > _size)
             {
-                change_capacity(new_size);
+                reallocate(new_size);
                 for(;_size < new_size;)
                     push_back(default_value);
             }
             else if(new_size < _size)
             {
                 _size = new_size;
-                change_capacity(new_size);
+                reallocate(new_size);
             }
                 
         }
@@ -111,7 +111,7 @@ namespace cpplab
         size_t _size = 0;
         std::unique_ptr<T[]> array;
 
-        void change_capacity(size_t new_capacity)
+        void reallocate(size_t new_capacity)
         {
             _capacity = new_capacity + ((new_capacity % _capacity_base) ? (_capacity_base - (new_capacity % _capacity_base)) : 0);
             T *new_array = new T[_capacity];
@@ -129,7 +129,7 @@ namespace cpplab
         void reduce_capacity()
         {
             if (_capacity > _capacity_base && _capacity - _capacity_base >= _size + 1)
-                change_capacity(_size);
+                reallocate(_size);
         }
 
         inline bool check_size() { return _size > 0 ? true : false; }
