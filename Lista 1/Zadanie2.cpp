@@ -88,6 +88,14 @@ namespace cpplab
                 throw std::out_of_range("Tried to access element with index " + std::to_string(id) + " when size of the vector is " + std::to_string(_size) + ".");
         }
 
+        constexpr T &operator[](std::size_t id)
+        {
+            if (id < _size && id >= 0)
+                return array[id];
+            else
+                throw std::out_of_range("Tried to access element with index " + std::to_string(id) + " when size of the vector is " + std::to_string(_size) + ".");
+        }
+
         friend std::ostream &operator<<(std::ostream &os, const Vector &vec)
         {
             os << "{ ";
