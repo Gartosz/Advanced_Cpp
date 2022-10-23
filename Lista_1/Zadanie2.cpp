@@ -14,12 +14,14 @@ namespace cpplab
 
         Vector()
         {
+            _capacity = 0;
+            _size = 0;
         }
 
         Vector(T value)
         {
             _capacity = _capacity_base;
-            _size++;
+            _size = 1;
             array.reset(new T[_capacity]);
             array[0] = value;
         }
@@ -106,9 +108,9 @@ namespace cpplab
         }
 
     private:
-        size_t _capacity = 0;
+        size_t _capacity;
         const size_t _capacity_base = 4;
-        size_t _size = 0;
+        size_t _size;
         std::unique_ptr<T[]> array;
 
         void reallocate(size_t new_capacity)
