@@ -39,4 +39,6 @@ int main()
 
     cpplab::hypercube cube_3(64, -4);
     std::cout << cube_3.calculate_volume() << "\n";
+
+    return 0;
 }
