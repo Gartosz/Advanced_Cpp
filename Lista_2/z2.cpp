@@ -1,5 +1,5 @@
 #include <iostream>
-#include <type_traits>
+#include <string>
 
 namespace cpplab
 {
@@ -7,15 +7,15 @@ namespace cpplab
     class hypercube
     {
         public: 
-        hypercube(T length, int dimensions)
+        constexpr hypercube(T length, int dimensions)
         {
-            if (dimensions < 2)
-                throw std::logic_error(std::to_string(dimensions) + " is not a proper number of dimensions.");
             _edge_length = length;
             _dimensions = dimensions;
         }
-        constexpr T calculate_volume()
+        constexpr T calculate_volume() const
         {
+            if (_dimensions < 1)
+                return -1;
             T volume = 1;
             for (int i = 0; i < _dimensions; ++i)
                 volume *= _edge_length;
@@ -30,14 +30,15 @@ namespace cpplab
 
 int main()
 {
-    static_assert(cpplab::hypercube<double>::calculate_volume, "Nie uruchamia sie w trakcie kompilacji.");
-    cpplab::hypercube cube_1(10, 3);
+    constexpr cpplab::hypercube cube_1(10, 3);
     std::cout << cube_1.calculate_volume() << "\n";
     
-    cpplab::hypercube cube_2(14.86, 7);
+    static_assert(cube_1.calculate_volume() == 1000, "Nie uruchamia sie w trakcie kompilacji.");
+
+    constexpr cpplab::hypercube cube_2(14.86, 7);
     std::cout << cube_2.calculate_volume() << "\n";
 
-    cpplab::hypercube cube_3(64, -4);
+    constexpr cpplab::hypercube cube_3(64, -4);
     std::cout << cube_3.calculate_volume() << "\n";
 
     return 0;
