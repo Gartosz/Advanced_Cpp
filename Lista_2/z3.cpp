@@ -2,13 +2,13 @@
 
 namespace cpplab
 {
-    template <typename Head, typename... Tail>
-    auto add_total(Head head, Tail... tail)
+    template <typename F, typename... R>
+    auto add_total(F first, R... remaining)
     {
-        if constexpr (sizeof...(tail) == 0)
-            return head;
+        if constexpr (sizeof...(remaining) == 0)
+            return first;
         else
-            return head + add_total(tail...);
+            return first + add_total(remaining...);
     }
 }
 
