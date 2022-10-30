@@ -2,15 +2,18 @@
 
 namespace cpplab
 {
-    template<typename T>
-    auto add_total(T *arg)
+    template <typename Head, typename... Tail>
+    auto add_total(Head head, Tail... tail)
     {
-        std::cout << sizeof(arg);
+        if constexpr (sizeof...(tail) == 0)
+            return head;
+        else
+            return head + add_total(tail...);
     }
 }
 
 int main()
 {
-    cpplab::add_total(1, 1.0f, 1.0);
-    
+    std::cout << cpplab::add_total(1, 2.5f, 3.8);
+    return 0;
 }
