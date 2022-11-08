@@ -42,6 +42,11 @@ namespace cpplab
             set_values<std::unique_ptr<T[]>>(this->array, second_vector.array);
         }
 
+        Vector& operator=(const Vector& second_vector)
+        {
+            return *this;
+        }
+
         ~Vector() { array.release(); }
 
         void push_back(T value)
@@ -170,7 +175,9 @@ int main()
 
     v2[6] = 123;
 
-    std::cout << v << "\n" << v2;
+    cpplab::Vector<int> v3 = v2;
+    v3[1] = 9;
+    std::cout << v << "\n" << v2 << "\n" << v3;
 
     return 0;
 }
