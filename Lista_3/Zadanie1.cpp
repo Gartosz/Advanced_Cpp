@@ -34,12 +34,10 @@ namespace cpplab
             std::copy(values_list.begin(), values_list.end(), array.get());
         }
 
-        Vector(Vector const &second_vector)
+        Vector(const Vector &second_vector)
         {
-            this->_capacity = second_vector._capacity;
-            this->_size = second_vector._size;
-            this->array = std::make_unique<T[]>(_capacity);
-            set_values<std::unique_ptr<T[]>>(this->array, second_vector.array);
+            std::cout << "Copy constructor\n";
+            copy_vector(second_vector);
         }
 
         Vector& operator=(const Vector& second_vector)
@@ -151,6 +149,14 @@ namespace cpplab
         }
 
         inline bool check_size() { return _size > 0 ? true : false; }
+
+        void copy_vector(const Vector &second_vector)
+        {
+            this->_capacity = second_vector._capacity;
+            this->_size = second_vector._size;
+            this->array = std::make_unique<T[]>(_capacity);
+            set_values<std::unique_ptr<T[]>>(this->array, second_vector.array);
+        }
     };
 }
 
