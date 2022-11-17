@@ -135,7 +135,9 @@ namespace cpplab
             os << "{ ";
             for (int i = 0; i < vec._size; ++i)
                 os << vec.array[i] << ", ";
-            os << "\b\b }";
+            if (vec._size != 0)
+                os << "\b\b";
+            os << " }";
             return os;
         }
 
