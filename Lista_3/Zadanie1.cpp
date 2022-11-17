@@ -114,7 +114,7 @@ namespace cpplab
 
         const size_t &size() const { return _size; }
 
-        constexpr T &operator[](std::size_t id) const
+        constexpr const T &operator[](std::size_t id) const
         {
             if (id < _size && id >= 0)
                 return array[id];
