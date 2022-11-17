@@ -213,9 +213,20 @@ int main()
 
     v2[6] = 123;
 
-    cpplab::Vector<int> v3 = v2;
-    v3[1] = 9;
-    std::cout << v << "\n" << v2 << "\n" << v3;
+    cpplab::Vector<int> v3;
+    v3 = v2;
+    v3[1] = 15;
+
+    std::cout << v << "\n" << v2 << "\n" << v3<< "\n";
+
+    cpplab::Vector<int> v4(std::move(v3));
+
+    std::cout << v3 << "\n" << v4<< "\n";
+
+    cpplab::Vector<int> v5;
+    v5 = std::move(v4);
+
+    std::cout << v4 << "\n" << v5<< "\n";
 
     return 0;
 }
