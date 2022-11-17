@@ -42,6 +42,10 @@ namespace cpplab
 
         Vector& operator=(const Vector& second_vector)
         {
+            std::cout << "Copy assignment\n";
+            copy_vector(second_vector);
+            return *this;
+        }
             return *this;
         }
 
