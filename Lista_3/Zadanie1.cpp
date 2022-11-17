@@ -178,6 +178,17 @@ namespace cpplab
             this->array = std::make_unique<T[]>(_capacity);
             set_values<std::unique_ptr<T[]>>(this->array, second_vector.array);
         }
+        
+        void move_vector(Vector& second_vector)
+        {
+            this->_capacity = second_vector._capacity;
+            this->_size = second_vector._size;
+            this->array = std::move(second_vector.array);
+
+            second_vector._capacity = 0;
+            second_vector._size = 0;
+            second_vector.array.release();
+        }
     };
 }
 
