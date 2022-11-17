@@ -46,6 +46,21 @@ namespace cpplab
             copy_vector(second_vector);
             return *this;
         }
+
+        Vector(Vector&& second_vector) noexcept
+        {
+            std::cout << "Move constructor\n";
+            move_vector(second_vector);
+        }
+
+        Vector& operator=(Vector&& second_vector) noexcept
+        {
+            std::cout << "Move assignment\n";
+            if (this != &second_vector)
+            {
+                array.release();
+                move_vector(second_vector);
+            }
             return *this;
         }
 
