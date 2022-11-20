@@ -167,6 +167,12 @@ namespace cpplab
         template<typename... U>
         void emplace_back(U ...args)
         {
+            if (_size == _capacity)
+            {
+                reallocate(_capacity + _capacity_base);
+            }
+            array[_size] = T(args...);
+            _size++;
         }
 
     private:
