@@ -3,6 +3,7 @@
 #include <initializer_list>
 #include <string>
 #include <vector>
+#include <utility>
 
 namespace cpplab
 {
@@ -171,7 +172,7 @@ namespace cpplab
             {
                 reallocate(_capacity + _capacity_base);
             }
-            array[_size] = T(args...);
+            array[_size] = std::forward<T>(T(args...));
             _size++;
         }
 
@@ -265,7 +266,7 @@ int main()
 
     cpplab::Vector<cpplab::Pixel> v6;
     v6.emplace_back(1,2,3);
-
+    v6.emplace_back(4,5,6);
     std::cout << v6;
     return 0;
 }
