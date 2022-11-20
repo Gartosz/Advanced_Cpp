@@ -141,6 +141,11 @@ namespace cpplab
             return os;
         }
 
+        template<typename... U>
+        void emplace_back(U ...args)
+        {
+        }
+
     private:
         size_t _capacity;
         const size_t _capacity_base = 4;
