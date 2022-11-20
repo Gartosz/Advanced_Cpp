@@ -6,6 +6,12 @@
 
 namespace cpplab
 {
+    class Pixel
+    {
+        public:
+        int r, g, b;
+    };
+
     template <class T>
     class Vector
     {
