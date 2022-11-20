@@ -262,5 +262,10 @@ int main()
 
     std::cout << v4 << "\n" << v5<< "\n";
 
+
+    cpplab::Vector<cpplab::Pixel> v6;
+    v6.emplace_back(1,2,3);
+
+    std::cout << v6;
     return 0;
 }
