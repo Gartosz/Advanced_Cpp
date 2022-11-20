@@ -10,6 +10,18 @@ namespace cpplab
     {
         public:
         int r, g, b;
+        Pixel(int r, int g, int b)
+        {
+            this->r = r;
+            this->g = g;
+            this->b = b;
+        }
+        Pixel()
+        {
+            this->r = 0;
+            this->g = 0;
+            this->b = 0;
+        }
     };
 
     template <class T>
