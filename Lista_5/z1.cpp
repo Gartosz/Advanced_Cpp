@@ -1,5 +1,6 @@
 #include <iostream>
 #include <thread>
+#include <mutex>
 #include <string>
 
 namespace cpplab
@@ -11,6 +12,8 @@ namespace cpplab
     }
     void print(std::string const &text)
     {
+        static std::mutex mutex;
+        const std::lock_guard<std::mutex> lock(mutex);
         std::cout << get_id() << " " << text << "\n";
     }
 }
