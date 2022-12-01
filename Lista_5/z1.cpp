@@ -8,8 +8,14 @@ namespace cpplab
     int get_id()
     {
         thread_local int thread_id = -1;
+        static int global_id = -1;
+        static std::mutex mutex;
+        const std::lock_guard<std::mutex> lock(mutex);
+        ++global_id;
+        thread_id = global_id;
         return thread_id;
     }
+
     void print(std::string const &text)
     {
         static std::mutex mutex;
@@ -23,7 +29,7 @@ int main()
     std::thread th_1(cpplab::print, "Serwus, ");
     std::thread th_2(cpplab::print, "Zimno");
     std::thread th_3(cpplab::print, "na");
-    std::thread th_4(cpplab::print, "dworze");
+    std::thread th_4(cpplab::print, "dworze.");
 
     th_1.join();
     th_2.join();
