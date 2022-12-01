@@ -17,10 +17,10 @@ namespace cpplab
 
 int main()
 {
-    std::thread th_1(cpplab::print, "Serwus");
-    std::thread th_2(cpplab::print, "Serwus");
-    std::thread th_3(cpplab::print, "Serwus");
-    std::thread th_4(cpplab::print, "Serwus");
+    std::thread th_1(cpplab::print, "Serwus, ");
+    std::thread th_2(cpplab::print, "Zimno");
+    std::thread th_3(cpplab::print, "na");
+    std::thread th_4(cpplab::print, "dworze");
 
     th_1.join();
     th_2.join();
