@@ -7,12 +7,11 @@ namespace cpplab
 {
     int get_id()
     {
-        thread_local int thread_id = -1;
-        static int global_id = -1;
+        thread_local int thread_id = 0;
+        static int global_id = 0;
         static std::mutex mutex;
         const std::lock_guard<std::mutex> lock(mutex);
-        ++global_id;
-        thread_id = global_id;
+        thread_id = global_id++;
         return thread_id;
     }
 
