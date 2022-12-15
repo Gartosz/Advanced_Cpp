@@ -29,4 +29,7 @@ namespace cpplab
 
 int main()
 {
+    cpplab::async_run(std::launch::async, "ASYNC", 10);
+    cpplab::async_run(std::launch::deferred, "DEFERRED", 10);
+    return 0;
 }
