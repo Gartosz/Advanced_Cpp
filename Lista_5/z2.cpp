@@ -18,6 +18,9 @@ namespace cpplab
 
     void async_run(std::launch launch_option, std::string message, int counter)
     {
+        if (--counter >= 0)
+        {
+        }
     }
     }
 
