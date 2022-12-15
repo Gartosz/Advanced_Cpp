@@ -20,6 +20,9 @@ namespace cpplab
     {
         if (--counter >= 0)
         {
+            auto async_1 = std::async(launch_option, async_run, launch_option, message, counter);
+            print(message);
+            async_1.get();
         }
     }
     }
