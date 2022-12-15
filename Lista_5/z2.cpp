@@ -31,7 +31,7 @@ namespace cpplab
             async_1.get();
         }
     }
-    }
+}
 
 int main()
 {
