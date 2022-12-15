@@ -1,3 +1,9 @@
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <string>
+#include <future>
+
 namespace cpplab
 {
     int get_id()
