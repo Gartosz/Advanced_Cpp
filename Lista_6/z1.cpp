@@ -1,7 +1,7 @@
 #include <vector>
 #include <future>
 #include <iostream>
-#include<numeric>
+#include <numeric>
 
 namespace cpplab
 {
@@ -14,5 +14,6 @@ namespace cpplab
 
 int main()
 {
-
+    std::vector<int> x{1, 3, 7}, y{2, 8, 9};
+    
 }
