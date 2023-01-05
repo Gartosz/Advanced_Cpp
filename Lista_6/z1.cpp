@@ -15,9 +15,16 @@ namespace cpplab
 int main()
 {
     std::vector<double> x{1, 3, 7}, y{2, 8, 9};
-    std::promise<double> promise;
-    std::future<double> future = promise.get_future();
-    std::thread thread(cpplab::dot_product, x, y, std::move(promise));
-    std::cout << "result=" << future.get() << '\n';
-    thread.join();
+    std::vector<std::promise<double>> promises(10);
+    std::vector<std::future<double>> futures;
+    std::vector<std::thread> threads;
+    double dot = 0;
+    for (int i = 0; i < promises.size(); ++i)
+    {
+        futures.push_back(promises[i].get_future());
+        threads.push_back(std::thread(cpplab::dot_product, x, y, std::move(promises[i])));
+        dot += futures[i].get();
+        threads[i].join();
+    }
+    std::cout << "Wynik: " << dot;
 }
