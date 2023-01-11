@@ -40,4 +40,17 @@ int main()
         threads[i].join();
     }
     std::cout << "Wynik: " << dot << std::endl;
+
+    std::vector<double> a{1, 3, 7, 123}, b{2, 8, 9};
+    std::promise<double> promise;
+    std::future<double> future = promise.get_future();
+    std::thread thread_exception_1(cpplab::dot_product, a, b, std::move(promise));
+
+    std::cout << future.get();
+    thread_exception_1.join();
+
+    std::thread thread_exception_2(cpplab::dot_product, std::vector<double> (), std::vector<double> (), std::move(promise));
+
+    std::cout << future.get();
+    thread_exception_2.join();
 }
