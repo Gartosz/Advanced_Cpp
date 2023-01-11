@@ -2,13 +2,26 @@
 #include <future>
 #include <iostream>
 #include <numeric>
+#include <cassert>
 
 namespace cpplab
 {
     void dot_product(std::vector<double> vec_1, std::vector<double> vec_2, std::promise<double> promise)
     {
-        double sum = std::inner_product(vec_1.begin(), vec_1.end(), vec_2.begin(), 0);
-        promise.set_value(sum);
+        try 
+        {
+            if (vec_1.size() != vec_2.size())
+                throw std::logic_error("Both vectors must have the same size!");
+            if (vec_1.size() == 0 || vec_2.size() == 0)
+                throw std::logic_error("Each vector cannot be empty!");
+
+            double sum = std::inner_product(vec_1.begin(), vec_1.end(), vec_2.begin(), 0);
+            promise.set_value(sum);
+        }
+        catch (std::exception)
+        {
+            promise.set_exception(std::current_exception());
+        }
     }
 }
 
@@ -26,5 +39,5 @@ int main()
         dot += futures[i].get();
         threads[i].join();
     }
-    std::cout << "Wynik: " << dot;
+    std::cout << "Wynik: " << dot << std::endl;
 }
