@@ -8,3 +8,8 @@ namespace cpplab
         }
     };
 }
+
+int main()
+{
+    
+}
