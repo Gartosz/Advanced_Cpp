@@ -16,13 +16,24 @@ namespace cpplab
 
         ~ThreadPool()
         {
-            
+
         }
 
         void add_task(std::function<double()> task)
         {
             threads.emplace_back(task);
         }
+
+        double average()
+        {
+            
+        }
+
+        void stop()
+        {
+            
+        }
+
         private:
         std::vector<std::function<double()>> task_vector;
         std::vector<std::thread> threads;
