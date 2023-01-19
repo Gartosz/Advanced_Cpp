@@ -12,6 +12,11 @@ namespace cpplab
         {
 
         }
+
+        void add_task(std::function<double()> task)
+        {
+            
+        }
         private:
         std::vector<std::function<double()>> task_vector;
         std::vector<std::thread> threads;
