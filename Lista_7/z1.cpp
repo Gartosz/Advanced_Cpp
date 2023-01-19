@@ -1,6 +1,7 @@
 #include <vector>
 #include <iostream>
 #include <functional>
+#include <thread>
 
 namespace cpplab
 {
@@ -13,6 +14,7 @@ namespace cpplab
         }
         private:
         std::vector<std::function<double()>> task_vector;
+        std::vector<std::thread> threads;
     };
 }
 
