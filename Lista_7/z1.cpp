@@ -14,6 +14,11 @@ namespace cpplab
                 threads.emplace_back(std::thread());
         }
 
+        ~ThreadPool()
+        {
+            
+        }
+
         void add_task(std::function<double()> task)
         {
             threads.emplace_back(task);
