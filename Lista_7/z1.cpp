@@ -10,12 +10,12 @@ namespace cpplab
         public:
         ThreadPool()
         {
-
+            
         }
 
         void add_task(std::function<double()> task)
         {
-            
+            threads.emplace_back(task);
         }
         private:
         std::vector<std::function<double()>> task_vector;
