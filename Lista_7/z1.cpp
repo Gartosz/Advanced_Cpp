@@ -26,12 +26,12 @@ namespace cpplab
 
         double average()
         {
-            
+            return 0;
         }
 
         void stop()
         {
-            
+
         }
 
         private:
@@ -42,5 +42,6 @@ namespace cpplab
 
 int main()
 {
-    
+    cpplab::ThreadPool basen {10};
+    return 0;
 }
