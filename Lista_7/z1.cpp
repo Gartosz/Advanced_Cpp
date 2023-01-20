@@ -2,6 +2,7 @@
 #include <iostream>
 #include <functional>
 #include <thread>
+#include <condition_variable>
 
 namespace cpplab
 {
@@ -37,6 +38,7 @@ namespace cpplab
         private:
         std::vector<std::function<double()>> task_vector;
         std::vector<std::thread> threads;
+        std::condition_variable cond_var;
     };
 }
 
