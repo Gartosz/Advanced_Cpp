@@ -20,7 +20,7 @@ namespace cpplab
                         std::function<double()> next_task;
 
                         std::unique_lock<std::mutex> lock(mutex);
-                        this -> cond_var.wait(lock, [this] {return this -> stop_threads;});
+                        this -> cond_var.wait(lock, [this] {return this -> stop_threads || !(this -> task_vector.empty());});
 
                         next_task = std::move(this -> task_vector.front());
                         this -> task_vector.pop_back();
