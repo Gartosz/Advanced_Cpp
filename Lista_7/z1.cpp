@@ -15,14 +15,14 @@ namespace cpplab
             {
                 threads.emplace_back([this]{
                     bool loop_condition = true;
-                    while (loop_condition)
+                    do
                     {
                         std::unique_lock<std::mutex> lock(mutex);
-                        this -> cond_var.wait(lock, [this] {return this -> stop_threads});
+                        this -> cond_var.wait(lock, [this] {return this -> stop_threads;});
 
                         if(this -> stop_threads)
                             loop_condition = false;
-                    }
+                    }while (loop_condition);
                 });
             }
         }
