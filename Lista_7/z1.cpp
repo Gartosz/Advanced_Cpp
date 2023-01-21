@@ -41,8 +41,10 @@ namespace cpplab
 
         void stop()
         {
-            std::unique_lock<std::mutex> lock(mutex);
-            stop_threads = true;
+            {
+                std::unique_lock<std::mutex> lock(mutex);
+                stop_threads = true;
+            }
             cond_var.notify_all();
             for (auto &thread : threads)
                 thread.join();
