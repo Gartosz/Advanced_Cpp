@@ -17,8 +17,13 @@ namespace cpplab
                     bool loop_condition = true;
                     do
                     {
+                        std::function<double()> next_task;
+
                         std::unique_lock<std::mutex> lock(mutex);
                         this -> cond_var.wait(lock, [this] {return this -> stop_threads;});
+
+                        next_task = std::move(this -> task_vector.front());
+                        this -> task_vector.pop_back();
 
                         if(this -> stop_threads)
                             loop_condition = false;
