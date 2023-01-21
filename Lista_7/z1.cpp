@@ -48,6 +48,7 @@ namespace cpplab
         std::vector<std::thread> threads;
         std::condition_variable cond_var;
         std::mutex mutex;
+        bool stop_threads = false;
     };
 }
 
