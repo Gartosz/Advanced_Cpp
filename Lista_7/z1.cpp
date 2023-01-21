@@ -40,6 +40,11 @@ namespace cpplab
 
         void stop()
         {
+            std::unique_lock<std::mutex> lock(mutex);
+            stop_threads = true;
+            cond_var.notify_all();
+            for (auto &thread : threads)
+                thread.join();
 
         }
 
@@ -55,5 +60,6 @@ namespace cpplab
 int main()
 {
     cpplab::ThreadPool basen {10};
+    basen.stop();
     return 0;
 }
