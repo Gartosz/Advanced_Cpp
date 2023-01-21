@@ -3,6 +3,7 @@
 #include <functional>
 #include <thread>
 #include <condition_variable>
+#include <queue>
 
 namespace cpplab
 {
@@ -22,9 +23,9 @@ namespace cpplab
                         std::function<double()> next_task;
                         {
                             std::unique_lock<std::mutex> lock(mutex);
-                            this -> cond_var.wait(lock, [this] {return this -> stop_threads || !(this -> task_vector.empty());});
-                            next_task = std::move(this -> task_vector.front());
-                            this -> task_vector.pop_back();
+                            this -> cond_var.wait(lock, [this] {return this -> stop_threads || !(this -> task_queue.empty());});
+                            next_task = std::move(this -> task_queue.front());
+                            this -> task_queue.pop();
                         }
                         if(next_task)
                         {
@@ -48,7 +49,7 @@ namespace cpplab
         void add_task(std::function<double()> task)
         {
             std::unique_lock<std::mutex> lock(mutex);
-            task_vector.emplace_back(std::move(task));
+            task_queue.emplace(std::move(task));
             cond_var.notify_one();
         }
 
@@ -70,7 +71,7 @@ namespace cpplab
         }
 
         private:
-        std::vector<std::function<double()>> task_vector;
+        std::queue<std::function<double()>> task_queue;
         std::vector<std::thread> threads;
         std::condition_variable cond_var;
         std::mutex mutex;
