@@ -72,7 +72,8 @@ namespace cpplab
 int main()
 {
     cpplab::ThreadPool basen {10};
-    basen.add_task();
+    for (int i = 0; i < 100; ++i)
+        basen.add_task([i]{return i*i;});
     basen.stop();
     return 0;
 }
