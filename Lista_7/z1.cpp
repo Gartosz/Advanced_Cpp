@@ -17,7 +17,7 @@ namespace cpplab
 
         ~ThreadPool()
         {
-
+            stop();
         }
 
         void add_task(std::function<double()> task)
