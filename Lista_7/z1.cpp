@@ -13,11 +13,12 @@ namespace cpplab
         {
             for (int i = 0; i < threads_count; ++i)
             {
-                threads.emplace_back([]{
+                threads.emplace_back([this]{
                     bool loop_condition = true;
                     while (loop_condition)
                     {
-                        
+                        if(this -> stop_threads)
+                            loop_condition = false;
                     }
                 });
             }
