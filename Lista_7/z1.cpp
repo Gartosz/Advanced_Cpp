@@ -40,7 +40,7 @@ namespace cpplab
         void add_task(std::function<double()> task)
         {
             std::unique_lock<std::mutex> lock(mutex);
-            threads.emplace_back(std::move(task));
+            task_vector.emplace_back(std::move(task));
             cond_var.notify_one();
         }
 
