@@ -17,6 +17,9 @@ namespace cpplab
                     bool loop_condition = true;
                     while (loop_condition)
                     {
+                        std::unique_lock<std::mutex> lock(mutex);
+                        this -> cond_var.wait(lock, [this] {return this -> stop_threads});
+
                         if(this -> stop_threads)
                             loop_condition = false;
                     }
