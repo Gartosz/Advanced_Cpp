@@ -17,7 +17,6 @@ namespace cpplab
             for (int i = 0; i < threads_count; ++i)
             {
                 threads.emplace_back([this]{
-                    bool loop_condition = true;
                     do
                     {
                         std::function<double()> next_task;
@@ -35,7 +34,7 @@ namespace cpplab
                         }
 
                         else if(this -> stop_threads)
-                            loop_condition = false;
+                            this -> loop_condition = false;
                     }while (loop_condition);
                 });
             }
@@ -78,6 +77,7 @@ namespace cpplab
         bool stop_threads = false;
         double sum;
         size_t done_tasks_count;
+        bool loop_condition = true;
     };
 }
 
