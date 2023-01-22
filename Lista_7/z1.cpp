@@ -14,7 +14,7 @@ namespace cpplab
         {
             sum = 0;
             done_tasks_count = 0;
-            for (int i = 0; i < threads_count; ++i)
+            for (size_t i = 0; i < threads_count; ++i)
             {
                 threads.emplace_back([this]{
                     do
