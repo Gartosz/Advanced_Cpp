@@ -28,9 +28,10 @@ namespace cpplab
                         }
                         if(next_task)
                         {
+                            double result = next_task();
                             std::unique_lock<std::mutex> lock(mutex);
                             ++(this -> done_tasks_count);
-                            this -> sum += next_task();
+                            this -> sum += result;
                         }
 
                         else if(this -> stop_threads)
