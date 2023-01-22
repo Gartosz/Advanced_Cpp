@@ -66,6 +66,7 @@ namespace cpplab
             }
             cond_var.notify_all();
             for (auto &thread : threads)
+                if (thread.joinable())
                 thread.join();
 
         }
