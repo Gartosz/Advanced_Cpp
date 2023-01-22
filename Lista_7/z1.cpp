@@ -9,7 +9,7 @@ namespace cpplab
 {
     class ThreadPool
     {
-        public:
+    public:
         ThreadPool(size_t threads_count)
         {
             sum = 0;
@@ -36,7 +36,7 @@ namespace cpplab
 
                         else if(this -> stop_threads)
                             this -> loop_condition = false;
-                    }while (loop_condition);
+                    }while (loop_condition); 
                 });
             }
         }
@@ -67,11 +67,10 @@ namespace cpplab
             cond_var.notify_all();
             for (auto &thread : threads)
                 if (thread.joinable())
-                thread.join();
-
+                    thread.join();
         }
 
-        private:
+    private:
         std::queue<std::function<double()>> task_queue;
         std::vector<std::thread> threads;
         std::condition_variable cond_var;
@@ -85,10 +84,10 @@ namespace cpplab
 
 int main()
 {
-    cpplab::ThreadPool basen {10};
-    for (int i = 0; i < 100; ++i)
-        basen.add_task([i]{return i*i;});
+    cpplab::ThreadPool basen{15};
+    for (int i = 0; i < 1000; ++i)
+        basen.add_task([i]{ return i * i; });
     basen.stop();
-    std::cout << basen.average();
+    std::cout << "Average: " << basen.average() << std::endl;
     return 0;
 }
