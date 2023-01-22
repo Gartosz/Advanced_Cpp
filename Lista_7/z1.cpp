@@ -55,7 +55,7 @@ namespace cpplab
 
         double average()
         {
-            return sum / done_tasks_count;
+            return done_tasks_count > 0 ? sum / done_tasks_count : 0;
         }
 
         void stop()
