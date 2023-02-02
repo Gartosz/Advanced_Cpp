@@ -1,7 +1,10 @@
+#include <mutex>
+
 namespace cpplab
 {
     class FuelTank
     {
+        std::mutex mutex;
         unsigned int fuel_level = 0;
         FuelTank(unsigned int fuel_base)
         {
@@ -10,6 +13,7 @@ namespace cpplab
 
         unsigned int refuel(unsigned int requested_fuel)
         {
+            std::lock_guard<std::mutex> lock(mutex);
             if (requested_fuel > fuel_level)
                 return 0;
             fuel_level -= requested_fuel;
