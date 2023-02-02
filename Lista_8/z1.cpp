@@ -6,7 +6,7 @@ namespace cpplab
 {
     class FuelTank
     {
-        std::mutex mutex;
+        public:
         unsigned int fuel_level = 0;
         FuelTank(unsigned int fuel_base)
         {
@@ -21,11 +21,19 @@ namespace cpplab
             fuel_level -= requested_fuel;
             return requested_fuel;
         }
+        private:
+        std::mutex mutex;
     };
 
     class Engine
     {
+        public:
         std::vector<std::shared_ptr<FuelTank>> fuel_tanks;
+
+        void connect_fuel_tank(std::shared_ptr<FuelTank> fuel_tank)
+        {
+            fuel_tanks.emplace_back(fuel_tank);
+        }
     };
 }
 
