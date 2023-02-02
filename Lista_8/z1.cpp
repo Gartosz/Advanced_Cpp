@@ -1,4 +1,6 @@
 #include <mutex>
+#include <vector>
+#include <memory>
 
 namespace cpplab
 {
@@ -23,7 +25,7 @@ namespace cpplab
 
     class Engine
     {
-
+        std::vector<std::shared_ptr<FuelTank>> fuel_tanks;
     };
 }
 
