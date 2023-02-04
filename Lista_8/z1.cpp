@@ -9,7 +9,6 @@ namespace cpplab
     class FuelTank
     {
         public:
-        unsigned int fuel_level = 0;
         FuelTank(unsigned int fuel_base)
         {
             fuel_level = fuel_base;
@@ -24,6 +23,7 @@ namespace cpplab
             return requested_fuel;
         }
         private:
+        unsigned int fuel_level = 0;
         std::mutex mutex;
     };
 
