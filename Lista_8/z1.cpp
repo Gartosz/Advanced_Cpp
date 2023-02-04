@@ -1,6 +1,7 @@
 #include <mutex>
 #include <vector>
 #include <memory>
+#include <thread>
 #include <chrono>
 
 namespace cpplab
@@ -42,6 +43,17 @@ namespace cpplab
         void connect_fuel_tank(std::shared_ptr<FuelTank> fuel_tank)
         {
             fuel_tanks.emplace_back(fuel_tank);
+        }
+
+        void engine_start()
+        {
+            engine_thread = std::thread(&engine_run, this);
+        }
+
+        private:
+        std::thread engine_thread;
+        void engine_run()
+        {
         }
     };
 }
