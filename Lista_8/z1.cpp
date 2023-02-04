@@ -41,9 +41,9 @@ namespace cpplab
             fuel_tanks.emplace_back(fuel_tank);
         }
 
-        void engine_start()
+        void start()
         {
-            engine_thread = std::thread(&engine_run, this);
+            engine_thread = std::thread(&run, this);
         }
 
         private:
@@ -51,7 +51,7 @@ namespace cpplab
         std::chrono::milliseconds interval_ms = std::chrono::milliseconds(0);
         unsigned int fuel_consumption = 0;
         std::thread engine_thread;
-        void engine_run()
+        void run()
         {
         }
     };
