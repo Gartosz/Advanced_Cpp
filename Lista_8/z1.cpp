@@ -9,10 +9,7 @@ namespace cpplab
     class FuelTank
     {
         public:
-        FuelTank(unsigned int fuel_base)
-        {
-            fuel_level = fuel_base;
-        }
+        FuelTank(unsigned int fuel_base) : fuel_level(fuel_base) {}
 
         unsigned int refuel(unsigned int requested_fuel)
         {
@@ -30,11 +27,10 @@ namespace cpplab
     class Engine
     {
         public:
-        Engine(size_t interval_ms_, unsigned int fuel_consumption_)
-        {
-            interval_ms = std::chrono::milliseconds(interval_ms_);
-            fuel_consumption = fuel_consumption_;
-        }
+        Engine(size_t interval_ms_, unsigned int fuel_consumption_) : 
+               interval_ms(std::chrono::milliseconds(interval_ms_)), fuel_consumption(fuel_consumption_) {}
+
+        
 
         void connect_fuel_tank(std::shared_ptr<FuelTank> fuel_tank)
         {
