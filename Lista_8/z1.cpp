@@ -1,6 +1,7 @@
 #include <mutex>
 #include <vector>
 #include <memory>
+#include <chrono>
 
 namespace cpplab
 {
@@ -29,12 +30,12 @@ namespace cpplab
     {
         public:
         std::vector<std::shared_ptr<FuelTank>> fuel_tanks;
-        size_t interval_ms = 0;
+        std::chrono::milliseconds interval_ms = std::chrono::milliseconds(0);
         unsigned int fuel_consumption = 0;
 
         Engine(size_t interval_ms_, unsigned int fuel_consumption_)
         {
-            interval_ms = interval_ms_;
+            interval_ms = std::chrono::milliseconds(interval_ms_);
             fuel_consumption = fuel_consumption_;
         }
 
