@@ -29,6 +29,14 @@ namespace cpplab
     {
         public:
         std::vector<std::shared_ptr<FuelTank>> fuel_tanks;
+        size_t interval_ms = 0;
+        unsigned int fuel_consumption = 0;
+
+        Engine(size_t interval_ms_, unsigned int fuel_consumption_)
+        {
+            interval_ms = interval_ms_;
+            fuel_consumption = fuel_consumption_;
+        }
 
         void connect_fuel_tank(std::shared_ptr<FuelTank> fuel_tank)
         {
