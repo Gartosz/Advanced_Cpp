@@ -30,7 +30,10 @@ namespace cpplab
         Engine(size_t interval_ms_, unsigned int fuel_consumption_) : 
                interval_ms(std::chrono::milliseconds(interval_ms_)), fuel_consumption(fuel_consumption_) {}
 
-        
+        ~Engine()
+        {
+            engine_thread.join();
+        }
 
         void connect_fuel_tank(std::shared_ptr<FuelTank> fuel_tank)
         {
