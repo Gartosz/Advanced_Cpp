@@ -52,6 +52,18 @@ namespace cpplab
         std::thread engine_thread;
         void run()
         {
+            do
+            {
+                std::this_thread::sleep_for(interval_ms);
+                for (auto fuel_tank = fuel_tanks.begin(); fuel_tank < fuel_tanks.end(); ++fuel_tank)
+                {
+                    if ((*fuel_tank)->refuel(fuel_consumption))
+                        fuel_tank = fuel_tanks.end();
+
+                    else
+                        fuel_tanks.erase(fuel_tank);
+                }
+            } while (!fuel_tanks.empty());
         }
     };
 }
