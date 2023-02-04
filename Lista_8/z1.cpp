@@ -70,5 +70,10 @@ namespace cpplab
 
 int main()
 {
+    std::shared_ptr<cpplab::FuelTank> tank = std::make_shared<cpplab::FuelTank>(10);
+    cpplab::Engine engine(800, 4);
+    engine.connect_fuel_tank(tank);
+    engine.start();
+
     return 0;
 }
