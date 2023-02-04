@@ -30,10 +30,6 @@ namespace cpplab
     class Engine
     {
         public:
-        std::vector<std::shared_ptr<FuelTank>> fuel_tanks;
-        std::chrono::milliseconds interval_ms = std::chrono::milliseconds(0);
-        unsigned int fuel_consumption = 0;
-
         Engine(size_t interval_ms_, unsigned int fuel_consumption_)
         {
             interval_ms = std::chrono::milliseconds(interval_ms_);
@@ -51,6 +47,9 @@ namespace cpplab
         }
 
         private:
+        std::vector<std::shared_ptr<FuelTank>> fuel_tanks;
+        std::chrono::milliseconds interval_ms = std::chrono::milliseconds(0);
+        unsigned int fuel_consumption = 0;
         std::thread engine_thread;
         void engine_run()
         {
