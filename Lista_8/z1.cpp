@@ -74,10 +74,23 @@ namespace cpplab
 
 int main()
 {
-    std::shared_ptr<cpplab::FuelTank> tank = std::make_shared<cpplab::FuelTank>(10);
-    cpplab::Engine engine(800, 4);
-    engine.connect_fuel_tank(tank);
-    engine.start();
+    std::vector<std::shared_ptr<cpplab::Engine>> engines;
+    engines.emplace_back(std::make_shared<cpplab::Engine>(2000, 5));
+    engines.emplace_back(std::make_shared<cpplab::Engine>(1000, 1));
+    engines.emplace_back(std::make_shared<cpplab::Engine>(3000, 2));
+    std::srand(time(NULL));
+    std::vector<std::shared_ptr<cpplab::FuelTank>> tanks;
+    for (int i = 0; i < 10; ++i)
+    {
+        tanks.emplace_back(std::make_shared<cpplab::FuelTank>(std::rand() % 15 + 10));
+    }
+
+    for (auto &engine : engines)
+    {
+        for (auto &tank : tanks)
+            engine->connect_fuel_tank(tank);
+        engine->start();
+    }
 
     return 0;
 }
