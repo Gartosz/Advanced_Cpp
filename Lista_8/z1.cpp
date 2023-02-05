@@ -32,6 +32,7 @@ namespace cpplab
 
         ~Engine()
         {
+            std::cout << "Engine used " << consumed_fuel << " of fuel.\n";
             engine_thread.join();
         }
 
@@ -50,6 +51,7 @@ namespace cpplab
         std::chrono::milliseconds interval_ms = std::chrono::milliseconds(0);
         unsigned int fuel_consumption = 0;
         std::thread engine_thread;
+        unsigned int consumed_fuel = 0;
         void run()
         {
             do
@@ -58,8 +60,10 @@ namespace cpplab
                 for (auto fuel_tank = fuel_tanks.begin(); fuel_tank < fuel_tanks.end(); ++fuel_tank)
                 {
                     if ((*fuel_tank)->refuel(fuel_consumption))
+                    {
+                        consumed_fuel += fuel_consumption;
                         fuel_tank = fuel_tanks.end();
-
+                    }
                     else
                         fuel_tanks.erase(fuel_tank);
                 }
