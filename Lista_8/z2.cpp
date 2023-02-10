@@ -9,6 +9,10 @@ namespace cpplab
         {
             delete pointer;
         }
+        T release()
+        {
+            return std::exchange(pointer, nullptr);
+        }
         private:
         T* pointer;
     };
