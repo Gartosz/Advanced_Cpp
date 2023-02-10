@@ -13,6 +13,11 @@ namespace cpplab
         {
             return std::exchange(pointer, nullptr);
         }
+        void reset(T* ptr = nullptr) noexcept
+        {
+            delete pointer;
+            pointer = ptr;
+        }
         private:
         T* pointer;
     };
