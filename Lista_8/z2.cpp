@@ -44,5 +44,9 @@ namespace cpplab
 
 int main()
 {
-    
+    cpplab::unique_ptr<int> c(new int(10));
+    std::cout << *c << "\n";
+    c.release();
+    cpplab::unique_ptr<cpplab::test> asd(new cpplab::test(15));
+    std::cout << asd->member << "\n";
 }
