@@ -26,6 +26,8 @@ namespace cpplab
         {
             std:swap(pointer, other.pointer);
         }
+        Type operator*() const noexcept {return *pointer;}
+        Type *operator->() const noexcept {return pointer;}
         private:
         Type* pointer;
     };
