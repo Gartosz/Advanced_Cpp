@@ -22,6 +22,10 @@ namespace cpplab
             delete pointer;
             pointer = ptr;
         }
+        void swap( unique_ptr& other ) noexcept
+        {
+            std:swap(pointer, other.pointer);
+        }
         private:
         Type* pointer;
     };
