@@ -3,6 +3,13 @@
 
 namespace cpplab
 {
+    class test
+    {
+        public:
+        test(int int_) {member = int_;}
+        int member = 0;
+    };
+
     template <typename Type>
     class unique_ptr
     {
@@ -32,6 +39,7 @@ namespace cpplab
         private:
         Type* pointer;
     };
+
 }
 
 int main()
