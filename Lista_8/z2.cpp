@@ -8,7 +8,7 @@ namespace cpplab
     {
         public:
         unique_ptr() : pointer(nullptr){} 
-
+        unique_ptr(Type *ptr) : pointer(ptr) {}
         ~unique_ptr()
         {
             delete pointer;
