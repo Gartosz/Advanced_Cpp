@@ -1,25 +1,29 @@
+#include <utility>
+#include <iostream>
+
 namespace cpplab
 {
-    template <typename T>
+    template <typename Type>
     class unique_ptr
     {
+        public:
         unique_ptr() : pointer(nullptr){} 
 
         ~unique_ptr()
         {
             delete pointer;
         }
-        T release()
+        Type* release()
         {
             return std::exchange(pointer, nullptr);
         }
-        void reset(T* ptr = nullptr) noexcept
+        void reset(Type* ptr = nullptr) noexcept
         {
             delete pointer;
             pointer = ptr;
         }
         private:
-        T* pointer;
+        Type* pointer;
     };
 }
 
