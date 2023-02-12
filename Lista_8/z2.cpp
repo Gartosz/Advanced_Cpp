@@ -49,6 +49,18 @@ namespace cpplab
         Type* pointer;
     };
 
+    template <typename Type>
+    class non0_ptr : public unique_ptr<Type>
+    {
+    public:
+        non0_ptr() = delete;
+        non0_ptr (Type *ptr) : unique_ptr<Type>(ptr)
+        {
+            if (ptr == nullptr)
+                throw std::invalid_argument("non0_ptr class cannot contain nullptr, as it is well described in its name.");
+        }
+        void release() = delete;
+    };
 }
 
 int main()
