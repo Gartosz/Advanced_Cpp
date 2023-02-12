@@ -45,9 +45,18 @@ namespace cpplab
 
 int main()
 {
-    cpplab::unique_ptr<int> c(new int(10));
-    std::cout << *c << "\n";
-    c.release();
+    cpplab::unique_ptr<int> u_ptr(new int(5));
+    std::cout << *u_ptr << "\n";
+    *u_ptr = 8;
+    std::cout << *u_ptr << "\n";
+    u_ptr.reset(new int(123));
+    std::cout << *u_ptr << "\n";
+    cpplab::unique_ptr<int> u_ptr2(new int(76));
+    std::cout << *u_ptr2 << "\n";
+    u_ptr.swap(u_ptr2);
+    std::cout << *u_ptr << " " << *u_ptr2 << "\n";
     cpplab::unique_ptr<cpplab::test> asd(new cpplab::test(15));
     std::cout << asd->member << "\n";
+    u_ptr.release();
+    std::cout << "Points to " << (u_ptr ? "address." : "nullptr.");
 }
