@@ -83,4 +83,14 @@ int main()
     std::cout << "u_ptr points to " << (u_ptr ? "address." : "nullptr.") << "\n";
     u_ptr2 = cpplab::unique_ptr<int> (new int(40));
     std::cout << *u_ptr2 << "\n";
+    cpplab::non0_ptr<float> non0(new float(-23.954f));
+    std::cout << *non0 << "\n";
+    try
+    {
+        cpplab::non0_ptr<float> null_ptr(nullptr);
+    }
+    catch(const std::logic_error& e)
+    {
+        std::cerr << e.what() << "\n";
+    }
 }
