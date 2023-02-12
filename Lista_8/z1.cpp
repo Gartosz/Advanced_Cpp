@@ -32,7 +32,7 @@ namespace cpplab
 
         ~Engine()
         {
-            std::cout << "Engine used " << consumed_fuel << " of fuel.\n";
+            std::cout << "Engine on thread " << engine_thread.get_id() << " used " << consumed_fuel << " of fuel.\n";
             engine_thread.join();
         }
 
