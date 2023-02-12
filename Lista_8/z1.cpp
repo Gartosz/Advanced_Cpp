@@ -35,8 +35,10 @@ namespace cpplab
 
         ~Engine()
         {
-            std::cout << "Engine on thread " << engine_thread.get_id() << " used " << consumed_fuel << " of fuel.\n";
             engine_thread.join();
+            std::chrono::steady_clock::time_point end_time = std::chrono::steady_clock::now();
+            std::chrono::duration<float> elapsed_time = end_time - start_time;
+            std::cout << "Engine used " << consumed_fuel << " of fuel in " << elapsed_time << " seconds.\n";
         }
 
         void connect_fuel_tank(std::shared_ptr<FuelTank> fuel_tank)
@@ -53,6 +55,7 @@ namespace cpplab
         private:
         std::vector<std::shared_ptr<FuelTank>> fuel_tanks;
         std::chrono::milliseconds interval_ms = std::chrono::milliseconds(0);
+        std::chrono::steady_clock::time_point start_time = std::chrono::steady_clock::now();
         unsigned int fuel_consumption = 0;
         std::thread engine_thread;
         unsigned int consumed_fuel = 0;
