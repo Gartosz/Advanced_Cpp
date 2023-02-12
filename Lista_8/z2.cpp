@@ -33,7 +33,7 @@ namespace cpplab
         {
             std::swap(pointer, other.pointer);
         }
-        Type get() const noexcept {return pointer;}
+        Type *get() const noexcept {return pointer;}
         Type operator*() const noexcept {return *pointer;}
         Type *operator->() const noexcept {return pointer;}
         private:
