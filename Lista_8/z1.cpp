@@ -82,7 +82,7 @@ int main()
     std::vector<std::shared_ptr<cpplab::FuelTank>> tanks;
     for (int i = 0; i < 10; ++i)
     {
-        tanks.emplace_back(std::make_shared<cpplab::FuelTank>(std::rand() % 15 + 10));
+        tanks.emplace_back(std::make_shared<cpplab::FuelTank>(std::rand() % 10 + 10));
     }
 
     for (auto &engine : engines)
