@@ -36,6 +36,7 @@ namespace cpplab
         Type *get() const noexcept {return pointer;}
         Type &operator*() const noexcept {return *pointer;}
         Type *operator->() const noexcept {return pointer;}
+        explicit operator bool() const noexcept {return static_cast<bool>(pointer);}
         private:
         Type* pointer;
     };
