@@ -3,6 +3,9 @@
 #include <memory>
 #include <thread>
 #include <chrono>
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
 
 namespace cpplab
 {
@@ -43,7 +46,8 @@ namespace cpplab
 
         void start()
         {
-            engine_thread = std::thread(&run, this);
+            std::cout << "Engine started.\n";
+            engine_thread = std::thread(&cpplab::Engine::run, this);
         }
 
         private:
