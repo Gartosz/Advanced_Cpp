@@ -16,6 +16,7 @@ namespace cpplab
         public:
         unique_ptr() : pointer(nullptr){} 
         unique_ptr(Type *ptr) : pointer(ptr) {}
+        unique_ptr(unique_ptr &&second) noexcept : pointer(std::exchange(second.pointer, nullptr)) {}
         unique_ptr &operator=(unique_ptr &&second_ptr) noexcept
         {
             reset(second_ptr.release());
