@@ -20,6 +20,11 @@ namespace cpplab
         {
             delete pointer;
         }
+        unique_ptr &operator=(unique_ptr &&second_ptr) noexcept
+        {
+            reset(second_ptr.release());
+            return *this;
+        }
         Type* release()
         {
             return std::exchange(pointer, nullptr);
@@ -29,9 +34,9 @@ namespace cpplab
             delete pointer;
             pointer = ptr;
         }
-        void swap( unique_ptr &other ) noexcept
+        void swap( unique_ptr &second_ptr ) noexcept
         {
-            std::swap(pointer, other.pointer);
+            std::swap(pointer, second_ptr.pointer);
         }
         Type *get() const noexcept {return pointer;}
         Type &operator*() const noexcept {return *pointer;}
