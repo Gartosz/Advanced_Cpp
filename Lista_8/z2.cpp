@@ -16,14 +16,16 @@ namespace cpplab
         public:
         unique_ptr() : pointer(nullptr){} 
         unique_ptr(Type *ptr) : pointer(ptr) {}
-        ~unique_ptr()
-        {
-            delete pointer;
-        }
         unique_ptr &operator=(unique_ptr &&second_ptr) noexcept
         {
             reset(second_ptr.release());
             return *this;
+        }
+        unique_ptr(const unique_ptr &copied) = delete;
+        unique_ptr& operator=(const unique_ptr &copy_assigned) = delete;
+        ~unique_ptr()
+        {
+            delete pointer;
         }
         Type* release()
         {
